@@ -3,7 +3,7 @@
 #include <iostream>
 #include <deque>
 #include <cstdlib>
-#include <ctime>
+#include <ctime> //Random Number Generator
 #include "Car.h"
 
 using namespace std;
@@ -30,7 +30,7 @@ int main() {
         car.print();
     }
 
-    // Ensure we have cars in the queue
+    // Check if cars are in the queue
     if (tollBoothQue.empty()) {
         cout << "Error: The initial queue is empty!" << endl;
         return 1;
@@ -49,7 +49,7 @@ int main() {
 
         // Check probabilities and display corresponding output
         if (randValue < CAR_LEAVES) {
-            // A car at the front of the queue pays and leaves
+            //car at the front of the queue pays and leaves
             Car paidCar = tollBoothQue.front();
             tollBoothQue.pop_front();
             cout << "Operation: Car paid: ";
