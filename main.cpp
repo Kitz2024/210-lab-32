@@ -27,6 +27,7 @@ int main() {
     // initial queue
     cout << "Initial queue:\n";
     for (auto& car : tollBoothQue) {
+        cout << "\t";
         car.print();
     }
 
@@ -65,11 +66,12 @@ int main() {
         }
 
         // Display the updated queue after the operation
-        cout << "\nQueue:\n";
+        cout << "Queue:\n";
         if (tollBoothQue.empty()) {
             cout << "Empty\n";
         } else {
             for (auto& car : tollBoothQue){
+                cout << "\t";
                 car.print();
             }
         }
