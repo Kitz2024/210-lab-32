@@ -1,5 +1,5 @@
 // Kit Pollinger
-// 210 - Lab 32 | Booth Toll
+// 210 - Lab 33 | Toll Plaza
 #include <iostream>
 #include <deque>
 #include <cstdlib>
