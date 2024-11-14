@@ -30,123 +30,80 @@ int main()
     // Initialize deque with a couple of cars
     deque<Car> tollBoothQue[NUM_LANES];
 
-    // Populate the initial queue with cars
-    for (int i = 0; i < NUM_LANES; i++)
-    {
+    // Populate the lanes with 1-3 cars each
+    for (int i = 0; i < NUM_LANES; i++) {
         int initialCars = rand() % (MAX_CARS - MIN_CARS + 1) + MIN_CARS;
-        for (int j = 0; j < initialCars; j++)
-        {
+        for (int j = 0; j < initialCars; j++) {
             tollBoothQue[i].push_back(Car());
         }
     }
 
-    // initial queue
+    // Print initial queue state
     cout << "Initial queue:\n";
-    for (int i = 0; i < NUM_LANES; i++)
-    {
+    for (int i = 0; i < NUM_LANES; ++i) {
         cout << "Lane " << i + 1 << ":\n";
-        if (tollBoothQue[i].empty())
-        {
-            cout << "    empty\n";
-        }
-        else
-        {
-            for (auto &car : tollBoothQue[i])
-            {
-                car.print();
-            }
+        for (auto& car : tollBoothQue[i]) {
+            car.print();
         }
         cout << "\n";
     }
 
-    // Time counter
-    int time = 1;
-
-    // Simulation loop for 20 time periods
-    while (time <= SIMULATION_PERIODS)
-    {
+    // Simulation loop
+    for (int time = 1; time <= SIMULATION_PERIODS; ++time) {
         cout << "\nTime: " << time << "\n";
 
-        // Initialize a string to capture the operation message for each lane
-        string operations[NUM_LANES];
-
-        // For each lane, perform one operation
-        for (int i = 0; i < NUM_LANES; i++)
-        {
-            if (!tollBoothQue[i].empty())
-            {
+        // Process each lane
+        for (int i = 0; i < NUM_LANES; ++i) {
+            if (!tollBoothQue[i].empty()) {
                 double randValue = static_cast<double>(rand()) / RAND_MAX;
 
-                // Check operation type based on random value
-                if (randValue < CAR_LEAVES)
-                {
-                    // Car at the front of the queue pays and leaves
+                // Process operations based on random value
+                if (randValue < CAR_LEAVES) {
                     Car paidCar = tollBoothQue[i].front();
                     tollBoothQue[i].pop_front();
-                    operations[i] = "Paid: ";
-                    paidCar.print(); // Print the paid car's details directly
-                }
-                else if (randValue < CAR_LEAVES + CAR_JOINS)
-                {
-                    // A new car joins the queue
+                    cout << "Lane " << i + 1 << ": Paid: ";
+                    paidCar.print();
+                } else if (randValue < CAR_LEAVES + CAR_JOINS) {
                     Car newCar = Car();
                     tollBoothQue[i].push_back(newCar);
-                    operations[i] = "Joined: ";
-                    newCar.print(); // Print the new car's details directly
-                }
-                else if (randValue < CAR_LEAVES + CAR_JOINS + CAR_SWITCHES)
-                {
-                    // A car switches lanes
-                    if (tollBoothQue[i].size() > 0)
-                    {
-                        // Randomly pick a lane that is not the current one
+                    cout << "Lane " << i + 1 << ": Joined: ";
+                    newCar.print();
+                } else if (randValue < CAR_LEAVES + CAR_JOINS + CAR_SWITCHES) {
+                    if (tollBoothQue[i].size() > 0) {
                         int newLane = rand() % NUM_LANES;
-                        while (newLane == i)
-                        {
+                        while (newLane == i) {
                             newLane = rand() % NUM_LANES;
                         }
-
-                        // Move the car from the rear of the current lane to the new lane
                         Car carToMove = tollBoothQue[i].back();
                         tollBoothQue[i].pop_back();
                         tollBoothQue[newLane].push_back(carToMove);
-                        operations[i] = "Switched: ";
-                        carToMove.print(); // Print the switched car's details directly
+                        cout << "Lane " << i + 1 << ": Switched: ";
+                        carToMove.print();
                     }
-                }
-                else
-                {
-                    operations[i] = "No change.";
+                } else {
+                    cout << "Lane " << i + 1 << ": No change.\n";
                 }
             }
         }
-        for (int i = 0; i < NUM_LANES; i++)
-        {
-            cout << "Lane " << i + 1 << ": " << operations[i] << "\n";
-        }
-
-        // Print the updated queue status for each lane
-        for (int i = 0; i < NUM_LANES; i++)
-        {
-            cout << "Lane " << i + 1 << " Queue: ";
-            if (tollBoothQue[i].empty())
-            {
-                cout << "empty\n";
-            }
-            else
-            {
-                cout << "\n";
-                for (auto &car : tollBoothQue[i])
-                {
-                    // Use print() to display each car's details
-                    car.print(); 
-                }
+        // Print Next queue state
+        for (int i = 0; i < NUM_LANES; ++i) {
+            cout << "Lane " << i + 1 << " Queue:\n";
+            for (auto& car : tollBoothQue[i]) {
+                car.print();
             }
         }
-        time++;
     }
-
-    // queue is empty
-    cout << "\nQueue:\nEmpty\n";
+    cout << "\nFinal queue:\n";
+    for (int i = 0; i < NUM_LANES; ++i) {
+        cout << "Lane " << i + 1 << " Queue:\n";
+        if (tollBoothQue[i].empty()) {
+            cout << "  Empty\n";
+        } else {
+            for (auto& car : tollBoothQue[i]) {
+                car.print();
+            }
+            cout << "\n";
+        }
+    }
     return 0;
 }
