@@ -43,14 +43,14 @@ int main()
     for (int i = 0; i < NUM_LANES; ++i) {
         cout << "Lane " << i + 1 << ":\n";
         for (auto& car : tollBoothQue[i]) {
+             cout << "\t";
             car.print();
         }
-        cout << "\t";
     }
 
     // Simulation loop
     for (int time = 1; time <= SIMULATION_PERIODS; ++time) {
-        cout << "\nTime: " << time << "\n";
+        cout << "Time: " << time << "\n";
 
         // Process each lane
         for (int i = 0; i < NUM_LANES; ++i) {
@@ -89,8 +89,8 @@ int main()
         for (int i = 0; i < NUM_LANES; ++i) {
             cout << "Lane " << i + 1 << " Queue:\n";
             for (auto& car : tollBoothQue[i]) {
-                car.print();
                 cout << "\t";
+                car.print();
             }
         }
     }
@@ -101,8 +101,8 @@ int main()
             cout << "Empty\n";
         } else {
             for (auto& car : tollBoothQue[i]) {
-                car.print();
                 cout << "\t";
+                car.print();
             }
         }
     }
