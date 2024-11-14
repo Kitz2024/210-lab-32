@@ -45,7 +45,7 @@ int main()
         for (auto& car : tollBoothQue[i]) {
             car.print();
         }
-        cout << "\n";
+        cout << "\t";
     }
 
     // Simulation loop
@@ -90,6 +90,7 @@ int main()
             cout << "Lane " << i + 1 << " Queue:\n";
             for (auto& car : tollBoothQue[i]) {
                 car.print();
+                cout << "\t";
             }
         }
     }
@@ -97,12 +98,12 @@ int main()
     for (int i = 0; i < NUM_LANES; ++i) {
         cout << "Lane " << i + 1 << " Queue:\n";
         if (tollBoothQue[i].empty()) {
-            cout << "  Empty\n";
+            cout << "Empty\n";
         } else {
             for (auto& car : tollBoothQue[i]) {
                 car.print();
+                cout << "\t";
             }
-            cout << "\n";
         }
     }
     return 0;
